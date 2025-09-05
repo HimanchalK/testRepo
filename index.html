@@ -1,183 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Himanchal K | Movie Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Montserrat', sans-serif;
-        background-color: #0d0d1a; /* Even darker, more cinematic background */
-        color: #f0f0f0; /* Brighter text for better contrast */
-        line-height: 1.7;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Himanchal K's Cinematic Odyssey</title>
 
-      h1, h2 {
-        font-family: 'Playfair Display', serif;
-      }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-      /* Custom Gradient for Header - More vibrant, cosmic theme */
-      .header-gradient {
-        background: linear-gradient(135deg, #4b0082 0%, #2a0050 100%); /* Indigo to a deep violet */
-      }
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-      /* Subtle Animations */
-      .fade-in {
-        animation: fadeIn 1s ease-out forwards;
-        opacity: 0;
-      }
+  <style>
+    :root{
+      --bg:#0b0b1a;
+      --ink:#e6e6fa;
+      --violet:#7e22ce;
+      --fuchsia:#a855f7;
+    }
+    html{ scroll-behavior:smooth; }
+    /* Smooth entrance for hero text */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(18px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    /* Subtle glow pulse for CTA */
+    @keyframes glowPulse {
+      0%,100% { box-shadow: 0 0 0px rgba(168,85,247,0.0), 0 0 0px rgba(126,34,206,0.0); }
+      50%     { box-shadow: 0 0 24px rgba(168,85,247,0.45), 0 0 56px rgba(126,34,206,0.20); }
+    }
+    /* Scroll-reveal base + active states */
+    .reveal-on-scroll { opacity:0; transform: translateY(18px) scale(.98); transition: opacity .9s cubic-bezier(.2,.65,.2,1), transform .9s cubic-bezier(.2,.65,.2,1); }
+    .reveal-on-scroll.revealed { opacity:1; transform: translateY(0) scale(1); }
+    /* Fancy card hover depth */
+    .card-3d { transform-style: preserve-3d; perspective: 1200px; }
+    /* Animated grid overlay (hero) */
+    .moving-grid {
+      position: absolute; inset:0;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(126,34,206,.25), transparent 60%),
+        radial-gradient(1000px 600px at 110% 110%, rgba(168,85,247,.25), transparent 60%),
+        linear-gradient(to bottom right, rgba(126,34,206,.15), rgba(10,10,20,.0) 35%, rgba(168,85,247,.12) 75%);
+      overflow:hidden;
+    }
+    .moving-grid::after{
+      content:"";
+      position:absolute; inset:-200%;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px, 60px 60px;
+      transform: rotate(2deg);
+      animation: drift 45s linear infinite;
+    }
+    @keyframes drift { from { transform: translate3d(0,0,0) rotate(2deg); } to { transform: translate3d(-120px,-120px,0) rotate(2deg); } }
 
-      .slide-up {
-        animation: slideUp 0.8s ease-out forwards;
-        opacity: 0;
-        transform: translateY(20px);
-      }
+    /* Tailwind font utilities override via classes */
+    .font-display{ font-family: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
+    .font-body{ font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
 
-      @keyframes fadeIn {
-        to { opacity: 1; }
-      }
+    /* Starfield canvas blends softly over hero */
+    #stars { position:absolute; inset:0; mix-blend-mode:screen; opacity:.7; }
 
-      @keyframes slideUp {
-        to { opacity: 1; transform: translateY(0); }
-      }
+    /* Reduce motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .moving-grid::after { animation:none; }
+      #stars { display:none; }
+      .reveal-on-scroll { opacity:1 !important; transform:none !important; }
+    }
+  </style>
+</head>
 
-      /* Card hover effect */
-      .movie-card {
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      }
+<body class="font-body bg-[#0b0b1a] text-[var(--ink)] selection:bg-[var(--fuchsia)]/30 selection:text-[var(--ink)]">
+  <!-- Header / Hero -->
+  <header class="relative isolate min-h-[85vh] w-full overflow-hidden">
+    <!-- Cosmic gradient backdrop -->
+    <div class="absolute inset-0 bg-[radial-gradient(1200px_600px_at_-10%_-20%,rgba(126,34,206,.35),transparent_60%),radial-gradient(1000px_600px_at_120%_120%,rgba(168,85,247,.35),transparent_65%),linear-gradient(180deg,rgba(10,10,25,.0),rgba(10,10,25,.85))]"></div>
+    <!-- Animated grid + soft bloom -->
+    <div class="moving-grid"></div>
+    <!-- Stars (canvas) -->
+    <canvas id="stars"></canvas>
 
-      .movie-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-        background-color: #1a1a2e; /* Subtle background change on hover */
-      }
+    <!-- Content -->
+    <div class="relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-16 flex flex-col items-center text-center">
+      <h1 class="font-display text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.05] drop-shadow-[0_6px_30px_rgba(126,34,206,.35)] [text-shadow:0_4px_24px_rgba(168,85,247,.25)] animate-[fadeUp_.9s_ease-out_.1s_both]">
+        Himanchal K’s <span class="bg-clip-text text-transparent bg-gradient-to-br from-[var(--fuchsia)] to-[var(--violet)]">Cinematic Odyssey</span>
+      </h1>
+      <p class="mt-5 max-w-2xl text-base sm:text-lg md:text-xl italic opacity-90 animate-[fadeUp_.9s_ease-out_.25s_both]">
+        A personal constellation of films that shaped my taste—stories I revisit when I crave wonder, craft, and heart.
+      </p>
 
-      /* Image hover effect inside the card */
-      .movie-card-img {
-        transition: transform 0.4s ease-in-out;
-      }
-      .movie-card:hover .movie-card-img {
-        transform: scale(1.05) rotate(1deg);
-      }
+      <a href="#movies"
+         class="group mt-10 inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-[var(--fuchsia)] to-[var(--violet)] px-6 py-3 text-sm sm:text-base font-semibold text-white transition-transform duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[var(--fuchsia)]/60 animate-[glowPulse_3.5s_ease-in-out_infinite]">
+        <span>Explore My Universe</span>
+        <svg class="size-4 sm:size-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
 
-      /* Scroll-reveal effect for cards */
-      .scroll-reveal {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      }
-      .scroll-reveal.visible {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    </style>
-  </head>
-  <body>
-    <header class="header-gradient text-white py-24 shadow-2xl relative overflow-hidden">
-      <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxmaWxsPSJub25lIj4KICAgIDxwYXRoIGQ9Ik0gMTAgNSBMIDEwMCA5NSIgZmlsbD0iIzY2MzNBQiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMSI+PC9wYXRoPgogICAgPHBhdGggZD0iTSA1IDMwIEwgOTUgMTAwIiBmaWxsPSIjNjYzM0FCIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4xIj48L3BhdGg+CiAgICA8cGF0aCBkPSJNIDE1IC01IEwgMTA1IDkwIiBmaWxsPSIjNjYzM0FCIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4xIj48L3BhdGg+CiAgICA8cGF0aCBkPSJNIDUgOTUgTCA5NSA1IiBmaWxsPSIjNjYzM0FCIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4xIj48L3BhdGg+CiAgPC9maWxsPgo8L3N2Zz4='); background-size: 80px; opacity: 0.05;"></div>
+    <!-- Soft vignette -->
+    <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(70%_50%_at_50%_10%,rgba(10,10,25,0)_25%,rgba(10,10,25,.6)_80%,rgba(10,10,25,1)_100%)]"></div>
+  </header>
 
-      <div class="max-w-5xl mx-auto text-center relative z-10 px-6 fade-in">
-        <h1 class="text-6xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg leading-tight">Himanchal K's Cinematic Canvas</h1>
-        <p class="mt-6 text-xl md:text-2xl font-light opacity-90 italic">Where stories come alive, one frame at a time.</p>
-      </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-6 py-20">
-      <section class="mb-20 text-center slide-up" style="animation-delay: 0.3s;">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-purple-400">Welcome to My World of Films 🎬</h2>
-        <p class="text-gray-300 leading-relaxed max-w-4xl mx-auto text-lg">
-          Cinema is an enchanting escape, a mirror to our souls, and a boundless realm of imagination. This is my curated gallery of films—masterpieces that have captivated my heart, sparked my mind, and resonated deeply within me long after the final credits.
+  <!-- Movie Grid Section -->
+  <section id="movies" class="relative py-20 sm:py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 sm:mb-12 md:mb-16">
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl tracking-tight animate-[fadeUp_.9s_ease-out_.05s_both]">
+          Featured Films
+        </h2>
+        <p class="mt-3 text-sm sm:text-base opacity-80 animate-[fadeUp_.9s_ease-out_.12s_both]">
+          Eight films across eras and languages—each a portal to a different corner of the universe.
         </p>
-      </section>
-
-      <section>
-        <h2 class="text-4xl md:text-5xl font-bold mb-14 text-center text-purple-400">My Treasured Collection</h2>
-        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.1s;">
-            <img src="https://images.unsplash.com/photo-1627931448834-311894d3390f?q=80&w=2600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Shawshank Redemption" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">The Shawshank Redemption</h3>
-            <p class="text-gray-400 text-base">A powerful testament to the enduring human spirit and the profound nature of hope, even in the darkest confines.</p>
-          </div>
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.2s;">
-            <img src="https://images.unsplash.com/photo-1606550993080-692729a59247?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Godfather" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">The Godfather</h3>
-            <p class="text-gray-400 text-base">An unparalleled epic of family, power, and loyalty, set against the complex backdrop of the American mafia.</p>
-          </div>
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.3s;">
-            <img src="https://images.unsplash.com/photo-1610440706859-86c075798993?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Inception" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">Inception</h3>
-            <p class="text-gray-400 text-base">A mind-bending journey into the architecture of dreams, a thriller that redefines the very nature of reality.</p>
-          </div>
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.4s;">
-            <img src="https://images.unsplash.com/photo-1547840131-01efb6b9074b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Lunchbox" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">The Lunchbox</h3>
-            <p class="text-gray-400 text-base">A charming and heartwarming tale of an unlikely connection forged through a mistaken lunchbox delivery in Mumbai.</p>
-          </div>
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.5s;">
-            <img src="https://images.unsplash.com/photo-1542204165-65bf2613d4b6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Barfi! Still" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">Barfi!</h3>
-            <p class="text-gray-400 text-base">A delightful and poignant comedy-drama that proves love transcends all barriers, even those of language.</p>
-          </div>
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.6s;">
-            <img src="https://images.unsplash.com/photo-1555546258-00c14c41461f?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Parasite" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">Parasite</h3>
-            <p class="text-gray-400 text-base">A masterfully crafted dark comedy thriller that explores societal class distinctions with shocking twists.</p>
-          </div>
-          
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.7s;">
-            <img src="https://images.unsplash.com/photo-1616428230232-a5e12f6a7369?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Maayazhagan Still" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">Maayazhagan</h3>
-            <p class="text-gray-400 text-base">A deeply emotional Tamil film that beautifully captures the essence of unrequited love and the complexities of human relationships.</p>
-          </div>
-
-          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.8s;">
-            <img src="https://images.unsplash.com/photo-1534062635923-0d53c7a2559b?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Interstellar" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
-            <h3 class="font-bold text-2xl text-purple-300 mb-2">Interstellar</h3>
-            <p class="text-gray-400 text-base">An epic sci-fi odyssey that blends scientific ambition with the profound emotional core of human connection.</p>
-          </div>
-
-        </div>
-      </section>
-    </main>
-
-    <footer class="bg-gray-900 text-gray-500 py-12 mt-20 border-t border-gray-700">
-      <div class="max-w-5xl mx-auto text-center text-md px-6">
-        <p class="mb-3 text-lg">"The world is a stage, and the stories never end."</p>
-        <p class="text-sm">&copy; 2025 Himanchal K | Crafted with cinematic passion and Tailwind CSS.</p>
       </div>
-    </footer>
 
-    <script>
-      // Smooth Scroll Reveal for Movie Cards
-      document.addEventListener("DOMContentLoaded", () => {
-        const observerOptions = {
-          root: null,
-          rootMargin: "0px",
-          threshold: 0.2
-        };
+      <!-- Grid -->
+      <div class="grid gap-6 sm:gap-7 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <!-- Card Template (8 cards below) -->
+        <!-- 1. The Shawshank Redemption -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02] will-change-transform">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="The Shawshank Redemption poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/ShawshankRedemptionMoviePoster.jpg">
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">The Shawshank Redemption</h3>
+            <p class="mt-2 text-sm opacity-85">Hope chisels through stone and time in this serene, redemptive prison epic.</p>
+          </div>
+        </article>
 
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
+        <!-- 2. The Godfather -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="The Godfather poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/Godfather%20ver1.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">The Godfather</h3>
+            <p class="mt-2 text-sm opacity-85">A Shakespearean symphony of power, family, and solemn inevitability.</p>
+          </div>
+        </article>
 
-        document.querySelectorAll('.scroll-reveal').forEach(card => {
-          observer.observe(card);
-        });
-      });
-    </script>
-  </body>
+        <!-- 3. Inception -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="Inception poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/Inception%20ver3.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">Inception</h3>
+            <p class="mt-2 text-sm opacity-85">A clockwork heist through layered dreams—precision meets cosmic melancholy.</p>
+          </div>
+        </article>
+
+        <!-- 4. The Lunchbox -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="The Lunchbox poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/The_Lunchbox_poster.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">The Lunchbox</h3>
+            <p class="mt-2 text-sm opacity-85">Tender letters, solitary meals—an urban romance simmering with restraint.</p>
+          </div>
+        </article>
+
+        <!-- 5. Barfi! -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="Barfi! poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/Barfi%21_poster.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">Barfi!</h3>
+            <p class="mt-2 text-sm opacity-85">A fizzy, Chaplin-esque ode to love, kindness, and mischief.</p>
+          </div>
+        </article>
+
+        <!-- 6. Parasite -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="Parasite poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/Parasite%20(2019%20film).png">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">Parasite</h3>
+            <p class="mt-2 text-sm opacity-85">A razor-edged social thriller—wickedly funny until it isn’t.</p>
+          </div>
+        </article>
+
+        <!-- 7. Maayazhagan (poster filename uses Meiyazhagan) -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="Maayazhagan poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/Meiyazhagan_poster.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">Maayazhagan</h3>
+            <p class="mt-2 text-sm opacity-85">A soulful Tamil drama—memory, friendship, and homecoming intertwine.</p>
+          </div>
+        </article>
+
+        <!-- 8. Interstellar -->
+        <article class="group card-3d reveal-on-scroll rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02]">
+          <div class="relative aspect-[2/3] overflow-hidden">
+            <img loading="lazy" alt="Interstellar poster"
+                 class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.65,.2,1)] group-hover:scale-110 group-hover:rotate-[.8deg] group-hover:contrast-110 group-hover:saturate-125 group-hover:brightness-[1.05]"
+                 src="https://en.wikipedia.org/wiki/Special:FilePath/Interstellar_film_poster.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b1a] via-transparent to-transparent opacity-70"></div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-xl leading-snug">Interstellar</h3>
+            <p class="mt-2 text-sm opacity-85">A star-crossed odyssey where time, love, and physics collide.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative border-t border-white/10 bg-black/20">
+    <div class="mx-auto max-w-6xl px-6 py-10 text-sm opacity-80">
+      <p>© <span id="year"></span> Himanchal K · Crafted with Tailwind · Fonts: Playfair Display &amp; Montserrat</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: stars, scroll-reveal -->
+  <script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightweight starfield
+    (function(){
+      const c = document.getElementById('stars');
+      const ctx = c.getContext('2d');
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+      let w, h, stars = [];
+
+      function resize(){
+        w = c.clientWidth = c.parentElement.clientWidth;
+        h = c.clientHeight = c.parentElement.clientHeight;
+        c.width = w * DPR; c.height = h * DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+        // regenerate stars
+        const count = Math.round((w*h)/14000);
+        stars = Array.from({length: count}, ()=>({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*1.4 + .2,
+          a: Math.random()*0.5 + 0.3,
+          v: Math.random()*0.15 + 0.02
+        }));
+      }
+      function step(){
+        ctx.clearRect(0,0,w,h);
+        for(const s of stars){
+          s.y += s.v;
+          if(s.y > h) { s.y = -2; s.x = Math.random()*w; }
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(168,85,247,${s.a})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(step);
+      }
+      window.addEventListener('resize', resize, {passive:true});
+      resize(); step();
+    })();
+
+    // Scroll reveal using IntersectionObserver
+    (function(){
+      const items = Array.from(document.querySelectorAll('.reveal-on-scroll'));
+      const io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.classList.add('revealed');
+            io.unobserve(e.target);
+          }
+        }
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+      items.forEach(el => io.observe(el));
+    })();
+  </script>
+</body>
 </html>
