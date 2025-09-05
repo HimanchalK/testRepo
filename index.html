@@ -5,65 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Himanchal K | Movie Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #0d0d1a; /* Even darker, more cinematic background */
+        color: #f0f0f0; /* Brighter text for better contrast */
+        line-height: 1.7;
+      }
+
+      h1, h2 {
+        font-family: 'Playfair Display', serif;
+      }
+
+      /* Custom Gradient for Header - More vibrant, cosmic theme */
+      .header-gradient {
+        background: linear-gradient(135deg, #4b0082 0%, #2a0050 100%); /* Indigo to a deep violet */
+      }
+
+      /* Subtle Animations */
+      .fade-in {
+        animation: fadeIn 1s ease-out forwards;
+        opacity: 0;
+      }
+
+      .slide-up {
+        animation: slideUp 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      @keyframes fadeIn {
+        to { opacity: 1; }
+      }
+
+      @keyframes slideUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Card hover effect */
+      .movie-card {
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .movie-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        background-color: #1a1a2e; /* Subtle background change on hover */
+      }
+
+      /* Image hover effect inside the card */
+      .movie-card-img {
+        transition: transform 0.4s ease-in-out;
+      }
+      .movie-card:hover .movie-card-img {
+        transform: scale(1.05) rotate(1deg);
+      }
+
+      /* Scroll-reveal effect for cards */
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    </style>
   </head>
-  <body class="bg-gray-100 text-gray-900 font-sans">
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-10 shadow-lg">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Himanchal K</h1>
-        <p class="mt-3 text-lg md:text-xl font-light">A personal journey through movies I love</p>
+  <body>
+    <header class="header-gradient text-white py-24 shadow-2xl relative overflow-hidden">
+      <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxmaWxsPSJub25lIj4KICAgIDxwYXRoIGQ9Ik0gMTAgNSBMIDEwMCA5NSIgZmlsbD0iIzY2MzNBQiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMSI+PC9wYXRoPgogICAgPHBhdGggZD0iTSA1IDMwIEwgOTUgMTAwIiBmaWxsPSIjNjYzM0FCIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4xIj48L3BhdGg+CiAgICA8cGF0aCBkPSJNIDE1IC01IEwgMTA1IDkwIiBmaWxsPSIjNjYzM0FCIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4xIj48L3BhdGg+CiAgICA8cGF0aCBkPSJNIDUgOTUgTCA5NSA1IiBmaWxsPSIjNjYzM0FCIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4xIj48L3BhdGg+CiAgPC9maWxsPgo8L3N2Zz4='); background-size: 80px; opacity: 0.05;"></div>
+
+      <div class="max-w-5xl mx-auto text-center relative z-10 px-6 fade-in">
+        <h1 class="text-6xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg leading-tight">Himanchal K's Cinematic Canvas</h1>
+        <p class="mt-6 text-xl md:text-2xl font-light opacity-90 italic">Where stories come alive, one frame at a time.</p>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-6 py-12">
-      <!-- Welcome -->
-      <section class="mb-12 text-center">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4">Welcome 🎬</h2>
-        <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-          Movies are not just stories on a screen, they’re reflections of life, art, and imagination.  
-          Here, I’ve gathered some of my favorite films — timeless pieces that inspire, entertain, and stay with me long after the credits roll.
+    <main class="max-w-7xl mx-auto px-6 py-20">
+      <section class="mb-20 text-center slide-up" style="animation-delay: 0.3s;">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-purple-400">Welcome to My World of Films 🎬</h2>
+        <p class="text-gray-300 leading-relaxed max-w-4xl mx-auto text-lg">
+          Cinema is an enchanting escape, a mirror to our souls, and a boundless realm of imagination. This is my curated gallery of films—masterpieces that have captivated my heart, sparked my mind, and resonated deeply within me long after the final credits.
         </p>
       </section>
 
-      <!-- Favorite Movies -->
       <section>
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Movies I Love</h2>
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Movie Card -->
-          <div class="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <h3 class="font-bold text-lg">The Shawshank Redemption</h3>
-            <p class="text-gray-500 mt-2 text-sm">A story of hope and resilience.</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-14 text-center text-purple-400">My Treasured Collection</h2>
+        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.1s;">
+            <img src="https://images.unsplash.com/photo-1627931448834-311894d3390f?q=80&w=2600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Shawshank Redemption" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">The Shawshank Redemption</h3>
+            <p class="text-gray-400 text-base">A powerful testament to the enduring human spirit and the profound nature of hope, even in the darkest confines.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <h3 class="font-bold text-lg">The Godfather</h3>
-            <p class="text-gray-500 mt-2 text-sm">Power, family, and loyalty redefined.</p>
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.2s;">
+            <img src="https://images.unsplash.com/photo-1606550993080-692729a59247?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Godfather" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">The Godfather</h3>
+            <p class="text-gray-400 text-base">An unparalleled epic of family, power, and loyalty, set against the complex backdrop of the American mafia.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <h3 class="font-bold text-lg">The Dark Knight</h3>
-            <p class="text-gray-500 mt-2 text-sm">Chaos meets justice in Gotham City.</p>
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.3s;">
+            <img src="https://images.unsplash.com/photo-1610440706859-86c075798993?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Inception" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">Inception</h3>
+            <p class="text-gray-400 text-base">A mind-bending journey into the architecture of dreams, a thriller that redefines the very nature of reality.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <h3 class="font-bold text-lg">12 Angry Men</h3>
-            <p class="text-gray-500 mt-2 text-sm">A battle of reason inside the jury room.</p>
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.4s;">
+            <img src="https://images.unsplash.com/photo-1547840131-01efb6b9074b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Lunchbox" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">The Lunchbox</h3>
+            <p class="text-gray-400 text-base">A charming and heartwarming tale of an unlikely connection forged through a mistaken lunchbox delivery in Mumbai.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <h3 class="font-bold text-lg">Schindler's List</h3>
-            <p class="text-gray-500 mt-2 text-sm">A powerful testament to humanity.</p>
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.5s;">
+            <img src="https://images.unsplash.com/photo-1542204165-65bf2613d4b6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Barfi! Still" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">Barfi!</h3>
+            <p class="text-gray-400 text-base">A delightful and poignant comedy-drama that proves love transcends all barriers, even those of language.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <h3 class="font-bold text-lg">Inception</h3>
-            <p class="text-gray-500 mt-2 text-sm">Dreams within dreams — a masterpiece of imagination.</p>
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.6s;">
+            <img src="https://images.unsplash.com/photo-1555546258-00c14c41461f?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Parasite" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">Parasite</h3>
+            <p class="text-gray-400 text-base">A masterfully crafted dark comedy thriller that explores societal class distinctions with shocking twists.</p>
           </div>
+          
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.7s;">
+            <img src="https://images.unsplash.com/photo-1616428230232-a5e12f6a7369?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Maayazhagan Still" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">Maayazhagan</h3>
+            <p class="text-gray-400 text-base">A deeply emotional Tamil film that beautifully captures the essence of unrequited love and the complexities of human relationships.</p>
+          </div>
+
+          <div class="bg-gray-800 rounded-3xl p-7 movie-card scroll-reveal" style="animation-delay: 0.8s;">
+            <img src="https://images.unsplash.com/photo-1534062635923-0d53c7a2559b?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Interstellar" class="w-full h-56 object-cover rounded-xl mb-6 shadow-lg movie-card-img">
+            <h3 class="font-bold text-2xl text-purple-300 mb-2">Interstellar</h3>
+            <p class="text-gray-400 text-base">An epic sci-fi odyssey that blends scientific ambition with the profound emotional core of human connection.</p>
+          </div>
+
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-6 mt-12">
-      <div class="max-w-4xl mx-auto text-center text-sm">
-        <p>© 2025 Himanchal K | Built with ❤️ and Tailwind CSS</p>
+    <footer class="bg-gray-900 text-gray-500 py-12 mt-20 border-t border-gray-700">
+      <div class="max-w-5xl mx-auto text-center text-md px-6">
+        <p class="mb-3 text-lg">"The world is a stage, and the stories never end."</p>
+        <p class="text-sm">&copy; 2025 Himanchal K | Crafted with cinematic passion and Tailwind CSS.</p>
       </div>
     </footer>
+
+    <script>
+      // Smooth Scroll Reveal for Movie Cards
+      document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(card => {
+          observer.observe(card);
+        });
+      });
+    </script>
   </body>
 </html>
